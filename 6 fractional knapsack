@@ -1,3 +1,34 @@
+// Comparator to sort items by value/weight ratio in descending order
+    static class ItemComparator implements Comparator<Item> {
+        @Override
+        public int compare(Item a, Item b) {
+            double r1 = (double) a.value / a.weight;
+            double r2 = (double) b.value / b.weight;
+            return Double.compare(r2, r1); // Descending order (highest ratio first)
+        }
+    }
+    
+    static double fractionalKnapsack(int w, Item arr[], int n) {
+        // Sort items by value/weight ratio in descending order
+        Arrays.sort(arr, new ItemComparator());
+        
+        double res = 0.0;
+        for (int i = 0; i < n; i++) {
+            if (arr[i].weight <= w) {
+                res += arr[i].value;
+                w -= arr[i].weight;
+            } else {
+                res += (arr[i].value * w) / (double) arr[i].weight;
+                break;
+            }
+        }
+        return res;
+    }
+
+
+
+
+
 bool static mycompare(Item a, Item b) {
     	double r1 = (double)a.value / a.weight;
     	double r2 = (double)b.value / b.weight;
